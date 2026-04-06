@@ -1,0 +1,124 @@
+# Knowledge Base — Hockley Mint Limited
+
+## About Hockley Mint
+Hockley Mint is a well-established British jewellery manufacturer based in Birmingham's
+historic Jewellery Quarter. We specialise in crafting bespoke, high-quality jewellery
+for retailers and individual customers across the UK and globally.
+
+We are currently developing an AI-powered digital platform that allows customers to
+design fully bespoke jewellery through our retailer network — combining traditional
+craftsmanship with cutting-edge technology.
+
+## What We Make
+- Engagement rings and wedding bands
+- Bespoke necklaces, bracelets, and earrings
+- Custom signet rings and personalised pieces
+- Wholesale jewellery for retailers
+- One-of-a-kind commissions for special occasions
+
+## Materials We Work With
+- 9ct, 18ct, and 24ct gold (yellow, white, and rose)
+- Sterling silver and platinum
+- Diamonds, sapphires, rubies, emeralds, and other precious gemstones
+- Lab-grown diamonds (eco-friendly and more affordable option)
+- Mixed metals and alternative materials on request
+
+## Our New AI Platform (Coming Soon)
+We are building an intelligent jewellery design platform that allows customers to:
+- Describe their dream piece in natural language
+- Receive AI-generated 3D visualisations instantly
+- Customise materials, gemstones, and dimensions interactively
+- Get a real-time price estimate
+- Place an order directly through their preferred retailer
+
+This platform uses Large Language Models, multilingual NLP, and generative AI
+to make bespoke jewellery design accessible to everyone.
+
+## Bespoke Commission Process
+1. Initial consultation — discuss your vision, budget, and timeline
+2. Design proposal — our craftsmen sketch and propose options
+3. Approval and deposit — you approve the design and pay a 50% deposit
+4. Crafting — typically 4–6 weeks for bespoke pieces
+5. Final delivery — quality checked and delivered with certificate
+
+## Pricing Guide
+- Sterling silver pieces: from £150
+- 9ct gold pieces: from £350
+- 18ct gold pieces: from £650
+- Platinum pieces: from £1,200
+- Diamond engagement rings: from £800 (lab-grown) / £1,500 (natural)
+- Full bespoke commissions: priced individually based on materials and complexity
+
+## Retailer Partnership
+We supply jewellery to retailers across the UK and internationally.
+Our new AI platform will allow retailers to offer bespoke design services
+to their customers without needing in-house design expertise.
+
+Benefits for retailers:
+- Offer bespoke jewellery without specialist staff
+- AI handles customer consultations and design visualisation
+- Orders feed directly into our manufacturing workflow
+- Faster turnaround and higher customer satisfaction
+
+## Frequently Asked Questions
+
+**Q: Can I design something completely unique?**
+A: Yes. Every piece we make can be fully customised — metal type, gemstone,
+   engraving, size, and finish. Our new AI platform will make this even easier.
+
+**Q: How long does a bespoke piece take?**
+A: Standard bespoke commissions take 4–6 weeks. Rush orders may be possible
+   depending on complexity — ask us for details.
+
+**Q: Do you offer lab-grown diamonds?**
+A: Yes. Lab-grown diamonds are chemically identical to mined diamonds but more
+   affordable and environmentally friendly. We offer both options.
+
+**Q: Can I see a preview before committing?**
+A: Currently we provide hand-drawn sketches and CAD renders for approval before
+   crafting begins. Our new AI platform will provide instant 3D visualisations.
+
+**Q: Do you ship internationally?**
+A: Yes. We ship to over 30 countries with full insurance and tracking.
+
+**Q: What is your returns policy?**
+A: Bespoke pieces cannot be returned as they are made to order. However, we
+   guarantee our craftsmanship and will rectify any manufacturing defects.
+
+**Q: How does the AI recommendation system work?**
+A: Our upcoming AI system analyses your preferences, budget, and occasion to
+   recommend the perfect design. It learns from thousands of previous commissions
+   to suggest styles you'll love, personalised to you.
+
+**Q: What occasions do people typically commission pieces for?**
+A: Engagement rings are our most popular commission, followed by wedding bands,
+   anniversary gifts, birthday presents, and memorial pieces.
+
+## Qualifying Questions Lexi Should Ask
+When speaking to a potential customer, find out:
+- What is the occasion? (engagement, anniversary, birthday, wedding)
+- What is their budget range?
+- Do they have a metal preference? (gold, silver, platinum)
+- Do they have a gemstone preference? (diamond, sapphire, emerald etc.)
+- What is their timeline? (when do they need it by)
+- Have they bought bespoke jewellery before?
+
+A lead is ready to book a design consultation when they have shared:
+- Their occasion or reason for the piece
+- A rough budget (any range is fine)
+- A timeline or deadline
+
+## Book a Design Consultation
+We offer free 30-minute design consultations — in person at our Birmingham
+showroom or via video call.
+
+To book: tell our assistant what you have in mind and we'll find a suitable time.
+Our team speaks English, and our AI platform supports multiple languages
+including Urdu, Arabic, Spanish, French, and more.
+
+## Contact & Location
+Hockley Mint Limited
+65-66 Warstone Lane
+Hockley, Birmingham, B18 6NG
+United Kingdom
+Website: hockleymint.co.uk
