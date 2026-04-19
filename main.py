@@ -1,15 +1,6 @@
 """
 AI Lead Qualification & Booking System
-Built with FastAPI + Claude API + Vector Embeddings (RAG)
-
-How it works:
-1. User sends a message via the chat UI
-2. FastAPI receives it and performs semantic search on the knowledge base
-3. Only the most relevant chunks are injected into the LLM context
-4. Claude uses that grounded context to respond accurately
-5. Intent classifier determines if lead is qualified
-6. If qualified, simulate a booking
-7. All leads are saved to leads.csv
+Built with FastAPI + Claude API + Vector Embeddings (RAG) + DALL-E 3 Image Generation
 """
 
 from fastapi import FastAPI
@@ -22,19 +13,15 @@ import os
 from datetime import datetime
 from knowledge_base import load_knowledge_base, semantic_search
 from intent_classifier import classify_intent
+from image_generator import generate_jewellery_image
 
-# --- Setup ---
 app = FastAPI(title="AI Lead Qualification System")
 client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
 
-# Load the knowledge base and generate embeddings at startup
 load_knowledge_base("knowledge_base.txt")
-
-# Serve the frontend
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
-# --- Data model ---
 class ChatMessage(BaseModel):
     session_id: str
     user_name: str
@@ -42,24 +29,16 @@ class ChatMessage(BaseModel):
     message: str
 
 
-# --- Conversation history ---
 conversation_store: dict[str, list] = {}
+booked_sessions: set = set()  # Track which sessions already have a booking
 
 
-# --- Main chat endpoint ---
 @app.post("/chat")
 async def chat(payload: ChatMessage):
-    """
-    Receives a message, performs semantic search to find relevant knowledge,
-    sends to Claude with grounded context, classifies intent, logs lead.
-    """
 
     history = conversation_store.get(payload.session_id, [])
     history.append({"role": "user", "content": payload.message})
 
-    # Semantic search — find most relevant chunks for this specific message
-    # This is the key upgrade: instead of injecting everything, we find
-    # only what's relevant to what the user just asked
     relevant_context = semantic_search(payload.message)
 
     system_prompt = f"""You are Lexi, a friendly and professional AI assistant for Hockley Mint, a luxury British jewellery manufacturer based in Birmingham's historic Jewellery Quarter.
@@ -88,9 +67,8 @@ RELEVANT KNOWLEDGE BASE (semantically retrieved for this conversation):
 {relevant_context}
 
 Always be helpful, warm, and never pushy. If you don't know something, say so honestly.
-When a customer is qualified and ready to book, tell them you will arrange a free 30-minute design consultation."""
+When a customer is qualified and ready to book, tell them you will arrange a free 30-minute design consultation and that you are preparing a personalised preview of their piece."""
 
-    # Call Claude API
     response = client.messages.create(
         model="claude-sonnet-4-5",
         max_tokens=1000,
@@ -99,11 +77,9 @@ When a customer is qualified and ready to book, tell them you will arrange a fre
     )
 
     ai_reply = response.content[0].text
-
     history.append({"role": "assistant", "content": ai_reply})
     conversation_store[payload.session_id] = history
 
-    # Only classify intent after minimum 3 user messages
     user_messages = [m for m in history if m["role"] == "user"]
     message_count = len(user_messages)
 
@@ -122,13 +98,28 @@ When a customer is qualified and ready to book, tell them you will arrange a fre
     )
 
     booking_confirmed = None
-    if intent == "QUALIFIED" and message_count >= 3:
+    jewellery_image = None
+
+    # Only book ONCE per session — prevent duplicate booking cards
+    if intent == "QUALIFIED" and message_count >= 3 and payload.session_id not in booked_sessions:
+        booked_sessions.add(payload.session_id)
         booking_confirmed = simulate_booking(payload.user_name, payload.user_email)
+
+        # Generate bespoke jewellery image using DALL-E 3
+        full_conversation = " ".join([m["content"] for m in history])
+        image_result = generate_jewellery_image(full_conversation, client)
+
+        if image_result["success"]:
+            jewellery_image = {
+                "url": image_result["image_url"],
+                "description": image_result["description"]
+            }
 
     return {
         "reply": ai_reply,
         "intent": intent,
-        "booking": booking_confirmed
+        "booking": booking_confirmed,
+        "jewellery_image": jewellery_image
     }
 
 
