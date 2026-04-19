@@ -31,8 +31,7 @@
       position: fixed; inset: 0;
       background:
         radial-gradient(ellipse 800px 600px at 10% 80%, rgba(0,61,34,0.9) 0%, transparent 65%),
-        radial-gradient(ellipse 600px 800px at 90% 10%, rgba(0,40,22,0.95) 0%, transparent 65%),
-        radial-gradient(ellipse 400px 400px at 50% 50%, rgba(201,168,76,0.03) 0%, transparent 60%);
+        radial-gradient(ellipse 600px 800px at 90% 10%, rgba(0,40,22,0.95) 0%, transparent 65%);
       pointer-events: none; z-index: 0;
     }
 
@@ -45,7 +44,6 @@
       border-right: 1px solid var(--border-light);
     }
 
-    /* HEADER */
     header {
       padding: 18px 32px;
       border-bottom: 1px solid var(--border);
@@ -58,190 +56,83 @@
       width: 42px; height: 42px;
       border: 1px solid var(--gold);
       display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      position: relative;
+      flex-shrink: 0; position: relative;
     }
 
-    .logo-mark::before {
-      content: '';
-      position: absolute; inset: 3px;
-      border: 1px solid rgba(201,168,76,0.3);
-    }
-
+    .logo-mark::before { content: ''; position: absolute; inset: 3px; border: 1px solid rgba(201,168,76,0.3); }
     .logo-mark svg { width: 20px; height: 20px; fill: var(--gold-light); }
 
     .logo-text-wrap { flex: 1; }
-
-    .logo-name {
-      font-family: var(--font-display);
-      font-size: 18px;
-      font-weight: 400;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--gold-light);
-      line-height: 1;
-    }
-
-    .logo-tagline {
-      font-size: 9px;
-      font-weight: 300;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-top: 3px;
-    }
+    .logo-name { font-family: var(--font-display); font-size: 18px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-light); line-height: 1; }
+    .logo-tagline { font-size: 9px; font-weight: 300; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-muted); margin-top: 3px; }
 
     .header-right { display: flex; align-items: center; gap: 12px; }
 
-    .status-pill {
-      display: flex; align-items: center; gap: 6px;
-      padding: 4px 10px;
-      border: 1px solid rgba(92,184,92,0.3);
-      background: rgba(92,184,92,0.06);
-    }
-
+    .status-pill { display: flex; align-items: center; gap: 6px; padding: 4px 10px; border: 1px solid rgba(92,184,92,0.3); background: rgba(92,184,92,0.06); }
     .status-dot { width: 6px; height: 6px; background: #5CB85C; border-radius: 50%; animation: pulse 2.5s infinite; }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
-
     .status-text { font-size: 9px; font-weight: 400; letter-spacing: 0.14em; color: #5CB85C; text-transform: uppercase; }
 
-    .intent-badge {
-      padding: 5px 12px;
-      border: 1px solid var(--border-light);
-      font-size: 9px; font-weight: 500;
-      letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--text-muted);
-      transition: all 0.5s ease;
-    }
-
+    .intent-badge { padding: 5px 12px; border: 1px solid var(--border-light); font-size: 9px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); transition: all 0.5s ease; }
     .intent-badge.QUALIFIED { border-color: var(--gold); color: var(--gold-light); background: var(--gold-dim); }
     .intent-badge.NURTURING { border-color: rgba(201,168,76,0.3); color: rgba(220,185,100,0.8); }
     .intent-badge.COLD      { border-color: rgba(180,80,80,0.3); color: rgba(200,110,110,0.8); }
 
     /* GATE */
-    .gate {
-      flex: 1; display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      padding: 48px 32px; gap: 26px;
-      animation: fadeIn 0.8s ease;
-    }
-
+    .gate { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 48px 32px; gap: 26px; animation: fadeIn 0.8s ease; }
     @keyframes fadeIn { from { opacity:0; transform: translateY(16px); } to { opacity:1; transform: none; } }
 
-    .gate-emblem {
-      width: 72px; height: 72px;
-      border: 1px solid var(--gold);
-      display: flex; align-items: center; justify-content: center;
-      position: relative;
-    }
-
-    .gate-emblem::before {
-      content: '';
-      position: absolute; inset: 5px;
-      border: 1px solid rgba(201,168,76,0.25);
-    }
-
+    .gate-emblem { width: 72px; height: 72px; border: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; position: relative; }
+    .gate-emblem::before { content: ''; position: absolute; inset: 5px; border: 1px solid rgba(201,168,76,0.25); }
     .gate-emblem svg { width: 32px; height: 32px; fill: var(--gold-light); }
 
-    .gate-divider {
-      display: flex; align-items: center; gap: 14px; width: 100%; max-width: 320px;
-    }
-
+    .gate-divider { display: flex; align-items: center; gap: 14px; width: 100%; max-width: 320px; }
     .gate-divider-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
     .gate-divider-dot { width: 4px; height: 4px; background: var(--gold); transform: rotate(45deg); flex-shrink: 0; }
 
-    .gate h2 {
-      font-family: var(--font-display);
-      font-size: 36px; font-weight: 300;
-      letter-spacing: 0.03em; text-align: center;
-      color: var(--text); line-height: 1.25;
-    }
-
+    .gate h2 { font-family: var(--font-display); font-size: 36px; font-weight: 300; letter-spacing: 0.03em; text-align: center; color: var(--text); line-height: 1.25; }
     .gate h2 em { font-style: italic; color: var(--gold-light); }
-
-    .gate p {
-      font-size: 13px; font-weight: 300;
-      letter-spacing: 0.05em; color: var(--text-muted);
-      text-align: center; max-width: 340px; line-height: 1.9;
-    }
+    .gate p { font-size: 13px; font-weight: 300; letter-spacing: 0.05em; color: var(--text-muted); text-align: center; max-width: 340px; line-height: 1.9; }
 
     .gate-form { width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 14px; }
-
     .field-group { display: flex; flex-direction: column; gap: 7px; }
-
     label { font-size: 9px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); }
 
     input[type="text"], input[type="email"] {
-      background: rgba(0,0,0,0.2);
-      border: 1px solid var(--border);
-      padding: 13px 16px;
-      font-family: var(--font-body); font-size: 14px; font-weight: 300;
+      background: rgba(0,0,0,0.2); border: 1px solid var(--border);
+      padding: 13px 16px; font-family: var(--font-body); font-size: 14px; font-weight: 300;
       color: var(--text); outline: none; transition: border-color 0.3s;
     }
-
     input:focus { border-color: var(--gold); }
     input::placeholder { color: var(--text-muted); }
 
     .btn-primary {
-      background: transparent;
-      border: 1px solid var(--gold);
-      color: var(--gold-light);
-      padding: 14px 24px;
-      font-family: var(--font-body); font-size: 10px; font-weight: 500;
-      letter-spacing: 0.25em; text-transform: uppercase;
-      cursor: pointer; transition: all 0.3s ease; margin-top: 6px;
+      background: transparent; border: 1px solid var(--gold); color: var(--gold-light);
+      padding: 14px 24px; font-family: var(--font-body); font-size: 10px; font-weight: 500;
+      letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; margin-top: 6px;
     }
-
-    .btn-primary:hover { background: var(--gold-dim); color: var(--gold-pale); letter-spacing: 0.3em; }
+    .btn-primary:hover { background: var(--gold-dim); color: var(--gold-pale); }
     .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
 
     /* CHAT */
     .chat-area { flex: 1; display: none; flex-direction: column; min-height: 0; }
     .chat-area.active { display: flex; }
 
-    .messages {
-      flex: 1; overflow-y: auto; overflow-x: hidden;
-      padding: 28px 32px;
-      display: flex; flex-direction: column; gap: 18px;
-      min-height: 0;
-    }
-
+    .messages { flex: 1; overflow-y: auto; overflow-x: hidden; padding: 28px 32px; display: flex; flex-direction: column; gap: 18px; min-height: 0; }
     .messages::-webkit-scrollbar { width: 2px; }
     .messages::-webkit-scrollbar-track { background: transparent; }
     .messages::-webkit-scrollbar-thumb { background: var(--border); }
 
     .message { display: flex; gap: 12px; max-width: 80%; animation: msgIn 0.3s ease; }
     @keyframes msgIn { from { opacity:0; transform: translateY(5px); } to { opacity:1; } }
-
     .message.user { align-self: flex-end; flex-direction: row-reverse; }
 
-    .msg-avatar {
-      width: 30px; height: 30px;
-      border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 11px; flex-shrink: 0; margin-top: 3px;
-      background: rgba(0,0,0,0.3);
-      color: var(--gold);
-      font-family: var(--font-display);
-    }
+    .msg-avatar { width: 30px; height: 30px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; margin-top: 3px; background: rgba(0,0,0,0.3); color: var(--gold); font-family: var(--font-display); }
 
     .bubble { padding: 13px 17px; font-size: 14px; font-weight: 300; line-height: 1.75; letter-spacing: 0.02em; }
+    .message.ai .bubble { background: rgba(0,20,10,0.6); border: 1px solid var(--border-light); border-bottom-left-radius: 0; color: var(--text); }
+    .message.user .bubble { background: rgba(201,168,76,0.08); border: 1px solid var(--border); border-bottom-right-radius: 0; color: var(--gold-pale); }
 
-    .message.ai .bubble {
-      background: rgba(0,20,10,0.6);
-      border: 1px solid var(--border-light);
-      border-bottom-left-radius: 0;
-      color: var(--text);
-    }
-
-    .message.user .bubble {
-      background: rgba(201,168,76,0.08);
-      border: 1px solid var(--border);
-      border-bottom-right-radius: 0;
-      color: var(--gold-pale);
-    }
-
-    /* Typing */
     .typing-indicator { display: none; }
     .typing-indicator.visible { display: flex; }
     .dots { display: flex; gap: 5px; padding: 15px 17px; align-items: center; }
@@ -250,76 +141,42 @@
     .dots span:nth-child(3) { animation-delay: 0.4s; }
     @keyframes db { 0%,80%,100%{transform:translateY(0);opacity:.35} 40%{transform:translateY(-5px);opacity:1} }
 
-    /* Booking */
-    .booking-card {
-      border: 1px solid var(--gold);
-      padding: 22px 26px;
-      background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(0,61,34,0.3));
-      animation: msgIn 0.4s ease;
-    }
-
-    .booking-card h3 {
-      font-family: var(--font-display);
-      font-size: 13px; font-weight: 500;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--gold-light); margin-bottom: 12px;
-      display: flex; align-items: center; gap: 10px;
-    }
-
+    /* BOOKING CARD */
+    .booking-card { border: 1px solid var(--gold); padding: 22px 26px; background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(0,61,34,0.3)); animation: msgIn 0.4s ease; }
+    .booking-card h3 { font-family: var(--font-display); font-size: 13px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
     .booking-card h3::before { content: ''; display: block; width: 20px; height: 1px; background: var(--gold); }
-
     .booking-card p { font-size: 14px; font-weight: 300; color: var(--text); line-height: 1.6; }
     .booking-slot { font-family: var(--font-display); font-size: 17px; color: var(--gold-light); margin-top: 10px; font-style: italic; }
     .booking-email { font-size: 10px; letter-spacing: 0.12em; color: var(--text-muted); margin-top: 8px; text-transform: uppercase; }
 
-    /* Input */
-    .input-area {
-      padding: 16px 32px 18px;
-      border-top: 1px solid var(--border-light);
-      display: flex; gap: 12px; align-items: center;
-      background: rgba(0,20,10,0.98);
-      flex-shrink: 0;
-    }
+    /* JEWELLERY IMAGE */
+    .jewellery-preview { margin-top: 16px; border: 1px solid var(--border); overflow: hidden; }
+    .jewellery-preview-label { padding: 8px 14px; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); border-bottom: 1px solid var(--border-light); }
+    .jewellery-preview img { width: 100%; display: block; max-height: 300px; object-fit: cover; }
+    .jewellery-preview-desc { padding: 10px 14px; font-size: 12px; font-family: var(--font-display); font-style: italic; color: var(--text-muted); letter-spacing: 0.05em; }
 
-    .input-area input {
-      flex: 1;
-      background: rgba(0,0,0,0.25);
-      border: 1px solid var(--border);
-      padding: 13px 18px;
-      font-family: var(--font-body); font-size: 14px; font-weight: 300;
-      color: var(--text); outline: none; transition: border-color 0.3s;
-    }
+    /* GENERATING STATE */
+    .generating-indicator { margin-top: 16px; border: 1px solid var(--border-light); padding: 16px; display: flex; align-items: center; gap: 12px; }
+    .generating-indicator span { font-size: 12px; letter-spacing: 0.1em; color: var(--text-muted); text-transform: uppercase; }
 
+    /* INPUT */
+    .input-area { padding: 16px 32px 18px; border-top: 1px solid var(--border-light); display: flex; gap: 12px; align-items: center; background: rgba(0,20,10,0.98); flex-shrink: 0; }
+    .input-area input { flex: 1; background: rgba(0,0,0,0.25); border: 1px solid var(--border); padding: 13px 18px; font-family: var(--font-body); font-size: 14px; font-weight: 300; color: var(--text); outline: none; transition: border-color 0.3s; }
     .input-area input:focus { border-color: var(--gold); }
     .input-area input::placeholder { color: var(--text-muted); }
 
-    .send-btn {
-      width: 46px; height: 46px;
-      background: var(--gold-dim);
-      border: 1px solid var(--gold);
-      cursor: pointer; display: flex; align-items: center; justify-content: center;
-      transition: all 0.3s; flex-shrink: 0;
-    }
-
+    .send-btn { width: 46px; height: 46px; background: var(--gold-dim); border: 1px solid var(--gold); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; flex-shrink: 0; }
     .send-btn:hover { background: rgba(201,168,76,0.2); }
     .send-btn:active { transform: scale(0.95); }
     .send-btn:disabled { opacity: 0.3; cursor: not-allowed; }
     .send-btn svg { width: 15px; height: 15px; fill: var(--gold-light); }
 
-    .chat-footer {
-      text-align: center; padding: 7px;
-      font-size: 10px; letter-spacing: 0.1em; color: var(--text-muted);
-      border-top: 1px solid var(--border-light);
-      background: rgba(0,20,10,0.98);
-      flex-shrink: 0;
-    }
-
+    .chat-footer { text-align: center; padding: 7px; font-size: 10px; letter-spacing: 0.1em; color: var(--text-muted); border-top: 1px solid var(--border-light); background: rgba(0,20,10,0.98); flex-shrink: 0; }
     .chat-footer a { color: var(--gold); text-decoration: none; }
   </style>
 </head>
 <body>
 <div class="app">
-
   <header>
     <div class="logo-mark">
       <svg viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
@@ -329,10 +186,7 @@
       <div class="logo-tagline">Honest British Craftsmanship · Est. 1953</div>
     </div>
     <div class="header-right">
-      <div class="status-pill">
-        <div class="status-dot"></div>
-        <span class="status-text">Online</span>
-      </div>
+      <div class="status-pill"><div class="status-dot"></div><span class="status-text">Online</span></div>
       <div class="intent-badge" id="intentBadge">New Visitor</div>
     </div>
   </header>
@@ -343,21 +197,11 @@
       <svg viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
     </div>
     <h2>Begin Your<br><em>Bespoke Journey</em></h2>
-    <div class="gate-divider">
-      <div class="gate-divider-line"></div>
-      <div class="gate-divider-dot"></div>
-      <div class="gate-divider-line"></div>
-    </div>
+    <div class="gate-divider"><div class="gate-divider-line"></div><div class="gate-divider-dot"></div><div class="gate-divider-line"></div></div>
     <p>Chat with Lexi, our AI jewellery consultant, to explore bespoke pieces and book a complimentary design consultation.</p>
     <div class="gate-form">
-      <div class="field-group">
-        <label for="userName">Your Name</label>
-        <input type="text" id="userName" placeholder="e.g. James Thornton" autocomplete="name">
-      </div>
-      <div class="field-group">
-        <label for="userEmail">Email Address</label>
-        <input type="email" id="userEmail" placeholder="james@example.com" autocomplete="email">
-      </div>
+      <div class="field-group"><label for="userName">Your Name</label><input type="text" id="userName" placeholder="e.g. James Thornton" autocomplete="name"></div>
+      <div class="field-group"><label for="userEmail">Email Address</label><input type="email" id="userEmail" placeholder="james@example.com" autocomplete="email"></div>
       <button class="btn-primary" onclick="startChat()">Begin Consultation →</button>
     </div>
   </div>
@@ -367,9 +211,7 @@
     <div class="messages" id="messages">
       <div class="message ai typing-indicator" id="typingIndicator">
         <div class="msg-avatar">✦</div>
-        <div class="bubble">
-          <div class="dots"><span></span><span></span><span></span></div>
-        </div>
+        <div class="bubble"><div class="dots"><span></span><span></span><span></span></div></div>
       </div>
     </div>
     <div class="input-area">
@@ -378,12 +220,10 @@
         <svg viewBox="0 0 24 24"><path d="M2 21L23 12 2 3v7l15 2-15 2v7z"/></svg>
       </button>
     </div>
-    <div class="chat-footer">
-      <a href="/leads" target="_blank">View leads</a> &nbsp;·&nbsp; <a href="/docs" target="_blank">API docs</a> &nbsp;·&nbsp; © Hockley Mint Ltd
-    </div>
+    <div class="chat-footer"><a href="/leads" target="_blank">View leads</a> &nbsp;·&nbsp; <a href="/docs" target="_blank">API docs</a> &nbsp;·&nbsp; © Hockley Mint Ltd</div>
   </div>
-
 </div>
+
 <script>
   let sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).slice(2);
   let userName = '', userEmail = '';
@@ -400,9 +240,7 @@
 
   async function sendAIOpener() { await sendToAPI(`Hi, my name is ${userName}`); }
 
-  function handleKey(e) {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
-  }
+  function handleKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }
 
   async function sendMessage() {
     const input = document.getElementById('messageInput');
@@ -425,7 +263,7 @@
       showTyping(false);
       addMessage('ai', data.reply);
       updateIntentBadge(data.intent);
-      if (data.booking && data.booking.confirmed) showBookingCard(data.booking);
+      if (data.booking && data.booking.confirmed) showBookingCard(data.booking, data.jewellery_image);
     } catch (err) {
       showTyping(false);
       addMessage('ai', 'I apologise — something went wrong. Please try again.');
@@ -439,24 +277,33 @@
     const typing   = document.getElementById('typingIndicator');
     const el = document.createElement('div');
     el.className = `message ${role}`;
-    el.innerHTML = `
-      <div class="msg-avatar">${role === 'ai' ? '✦' : '◈'}</div>
-      <div class="bubble">${escapeHTML(text).replace(/\n/g,'<br>')}</div>
-    `;
+    el.innerHTML = `<div class="msg-avatar">${role === 'ai' ? '✦' : '◈'}</div><div class="bubble">${escapeHTML(text).replace(/\n/g,'<br>')}</div>`;
     messages.insertBefore(el, typing);
     messages.scrollTop = messages.scrollHeight;
   }
 
-  function showBookingCard(booking) {
+  function showBookingCard(booking, jewelleryImage) {
     const messages = document.getElementById('messages');
     const typing   = document.getElementById('typingIndicator');
     const card = document.createElement('div');
     card.className = 'booking-card';
+
+    let imageHTML = '';
+    if (jewelleryImage && jewelleryImage.url) {
+      imageHTML = `
+        <div class="jewellery-preview">
+          <div class="jewellery-preview-label">AI-Generated Personalised Preview</div>
+          <img src="${jewelleryImage.url}" alt="Your bespoke jewellery preview" loading="lazy">
+          <div class="jewellery-preview-desc">${escapeHTML(jewelleryImage.description)}</div>
+        </div>`;
+    }
+
     card.innerHTML = `
       <h3>Consultation Confirmed</h3>
       <p>A pleasure, <strong>${escapeHTML(booking.name)}</strong>. Your design consultation has been reserved.</p>
       <p class="booking-slot">📅 ${escapeHTML(booking.slot)}</p>
       <p class="booking-email">Confirmation → ${escapeHTML(booking.email)}</p>
+      ${imageHTML}
     `;
     messages.insertBefore(card, typing);
     messages.scrollTop = messages.scrollHeight;
