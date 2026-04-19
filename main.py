@@ -1,13 +1,15 @@
 """
 AI Lead Qualification & Booking System
-Built with FastAPI + Claude API
+Built with FastAPI + Claude API + Vector Embeddings (RAG)
 
 How it works:
 1. User sends a message via the chat UI
-2. FastAPI receives it and sends it to Claude with a qualification prompt
-3. Claude reads the knowledge base and decides if the lead is qualified
-4. If qualified → simulate a booking. If not → continue nurturing.
-5. All leads are saved to leads.csv
+2. FastAPI receives it and performs semantic search on the knowledge base
+3. Only the most relevant chunks are injected into the LLM context
+4. Claude uses that grounded context to respond accurately
+5. Intent classifier determines if lead is qualified
+6. If qualified, simulate a booking
+7. All leads are saved to leads.csv
 """
 
 from fastapi import FastAPI
@@ -18,30 +20,29 @@ import anthropic
 import csv
 import os
 from datetime import datetime
-from knowledge_base import load_knowledge_base
+from knowledge_base import load_knowledge_base, semantic_search
 from intent_classifier import classify_intent
 
 # --- Setup ---
 app = FastAPI(title="AI Lead Qualification System")
 client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
 
-# Load the knowledge base once at startup
-KNOWLEDGE_BASE = load_knowledge_base("knowledge_base.txt")
+# Load the knowledge base and generate embeddings at startup
+load_knowledge_base("knowledge_base.txt")
 
-# Serve the frontend (index.html + static files)
+# Serve the frontend
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
-# --- Data model for incoming chat messages ---
+# --- Data model ---
 class ChatMessage(BaseModel):
-    session_id: str          # Unique ID per conversation
-    user_name: str           # Lead's name
-    user_email: str          # Lead's email
-    message: str             # What they typed
+    session_id: str
+    user_name: str
+    user_email: str
+    message: str
 
 
-# --- In-memory conversation history (resets on server restart) ---
-# In a real system this would be a database
+# --- Conversation history ---
 conversation_store: dict[str, list] = {}
 
 
@@ -49,15 +50,18 @@ conversation_store: dict[str, list] = {}
 @app.post("/chat")
 async def chat(payload: ChatMessage):
     """
-    Receives a message from the lead, sends it to Claude,
-    classifies intent, logs the lead, and returns the AI reply.
+    Receives a message, performs semantic search to find relevant knowledge,
+    sends to Claude with grounded context, classifies intent, logs lead.
     """
 
-    # Build conversation history for this session
     history = conversation_store.get(payload.session_id, [])
     history.append({"role": "user", "content": payload.message})
 
-    # System prompt — this is the AI's "personality" and instructions
+    # Semantic search — find most relevant chunks for this specific message
+    # This is the key upgrade: instead of injecting everything, we find
+    # only what's relevant to what the user just asked
+    relevant_context = semantic_search(payload.message)
+
     system_prompt = f"""You are Lexi, a friendly and professional AI assistant for Hockley Mint, a luxury British jewellery manufacturer based in Birmingham's historic Jewellery Quarter.
 
 You help customers design and commission bespoke jewellery pieces including engagement rings, wedding bands, necklaces, bracelets, earrings, and signet rings.
@@ -80,10 +84,11 @@ CONVERSATION FLOW — follow this naturally across multiple messages:
 IMPORTANT: Do NOT rush to offer a booking. Have a proper conversation first.
 Only suggest booking after at least 4-5 meaningful exchanges.
 
-KNOWLEDGE BASE (our products, pricing, and FAQs):
-{KNOWLEDGE_BASE}
+RELEVANT KNOWLEDGE BASE (semantically retrieved for this conversation):
+{relevant_context}
 
-Always be helpful, warm, and never pushy. If you don't know something, say so honestly."""
+Always be helpful, warm, and never pushy. If you don't know something, say so honestly.
+When a customer is qualified and ready to book, tell them you will arrange a free 30-minute design consultation."""
 
     # Call Claude API
     response = client.messages.create(
@@ -95,23 +100,18 @@ Always be helpful, warm, and never pushy. If you don't know something, say so ho
 
     ai_reply = response.content[0].text
 
-    # Add AI reply to conversation history
     history.append({"role": "assistant", "content": ai_reply})
     conversation_store[payload.session_id] = history
 
-    # --- Minimum message threshold before qualifying ---
-    # Only classify intent after at least 3 user messages
-    # This prevents premature qualification from a single message
+    # Only classify intent after minimum 3 user messages
     user_messages = [m for m in history if m["role"] == "user"]
     message_count = len(user_messages)
 
-    intent = "NURTURING"  # Default until enough conversation has happened
-
+    intent = "NURTURING"
     if message_count >= 3:
         full_conversation = " ".join([m["content"] for m in history])
         intent = classify_intent(full_conversation, client)
 
-    # Log the lead to CSV
     log_lead(
         session_id=payload.session_id,
         name=payload.user_name,
@@ -121,7 +121,6 @@ Always be helpful, warm, and never pushy. If you don't know something, say so ho
         ai_reply=ai_reply
     )
 
-    # Only trigger booking if qualified AND enough messages exchanged
     booking_confirmed = None
     if intent == "QUALIFIED" and message_count >= 3:
         booking_confirmed = simulate_booking(payload.user_name, payload.user_email)
@@ -133,12 +132,7 @@ Always be helpful, warm, and never pushy. If you don't know something, say so ho
     }
 
 
-# --- Booking simulation ---
 def simulate_booking(name: str, email: str) -> dict:
-    """
-    Simulates confirming a booking slot.
-    In a real system this would connect to GHL calendar API.
-    """
     slot = "Tuesday 15 April 2026 at 10:00 AM GMT"
     return {
         "confirmed": True,
@@ -149,14 +143,8 @@ def simulate_booking(name: str, email: str) -> dict:
     }
 
 
-# --- CSV logger ---
 def log_lead(session_id, name, email, last_message, intent, ai_reply):
-    """
-    Appends lead data to leads.csv.
-    Creates the file with headers if it doesn't exist.
-    """
     file_exists = os.path.isfile("leads.csv")
-
     with open("leads.csv", "a", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=[
             "timestamp", "session_id", "name", "email",
@@ -164,7 +152,6 @@ def log_lead(session_id, name, email, last_message, intent, ai_reply):
         ])
         if not file_exists:
             writer.writeheader()
-
         writer.writerow({
             "timestamp": datetime.now().isoformat(),
             "session_id": session_id,
@@ -176,23 +163,18 @@ def log_lead(session_id, name, email, last_message, intent, ai_reply):
         })
 
 
-# --- Serve the frontend ---
 @app.get("/")
 async def serve_frontend():
     return FileResponse("static/index.html")
 
 
-# --- View all leads (bonus endpoint) ---
 @app.get("/leads")
 async def get_leads():
-    """Returns all captured leads as JSON."""
     if not os.path.isfile("leads.csv"):
         return {"leads": [], "message": "No leads captured yet"}
-
     leads = []
     with open("leads.csv", "r", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
             leads.append(row)
-
     return {"total": len(leads), "leads": leads}
